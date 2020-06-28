@@ -1,5 +1,6 @@
 import 'package:authentication/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
 
@@ -20,7 +21,7 @@ class AuthService {
 
 
 
-  //Sign In Anonomously
+  //Sign In Anonamously
   Future signInAnon() async{
     try{
       AuthResult result = await _auth.signInAnonymously();
@@ -54,6 +55,12 @@ class AuthService {
       return null;
     }
   }
+
+  // Sign In With
+
+
+
+
   //sign out
 
   Future signOut() async{

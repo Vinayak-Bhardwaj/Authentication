@@ -3,6 +3,7 @@ import 'package:authentication/shared/constants.dart';
 import 'package:authentication/shared/loading.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class SignIn extends StatefulWidget {
 

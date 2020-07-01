@@ -3,7 +3,7 @@ import 'package:authentication/shared/constants.dart';
 import 'package:authentication/shared/loading.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+
 
 class SignIn extends StatefulWidget {
 
@@ -24,6 +24,9 @@ class _SignInState extends State<SignIn> {
   String email = '';
   String password = '';
   String error = '';
+  String phoneNo;
+  String smsCode;
+  String verificationId;
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +52,9 @@ class _SignInState extends State<SignIn> {
           key: _formKey,
           child: Column(
             children:<Widget>[
+
+              //EMAIL TEXT FIELD AND VALIDATION
+
               SizedBox(height: 20.0),
               TextFormField(
                   decoration: textInputDecoration.copyWith(hintText: 'Email'),
@@ -58,6 +64,9 @@ class _SignInState extends State<SignIn> {
 
                 }
               ),
+
+              //PASSWORD TEXT FIELD AND VALIDATION
+
               SizedBox(height: 20.0),
               TextFormField(
                   decoration: textInputDecoration.copyWith(hintText: 'Password'),
@@ -69,26 +78,58 @@ class _SignInState extends State<SignIn> {
                 }
               ),
               SizedBox(height: 20.0),
-              RaisedButton(
-                color:Colors.pink[400],
-                child:Text(
-                  'Sign in',
-                      style: TextStyle(color: Colors.white),
-                ),
-                onPressed: () async{
-                  if(_formKey.currentState.validate()){
-                    setState(() => loading = true);
-                    dynamic result = await _auth.signInWithEmailAndPassword(email, password);
-                    if(result == null){
-                      setState(() {
-                        error = 'Could not sign in with those credentials';
-                        loading = false;
-                      });
-                    }
-                  }
+              Row(
+                children: <Widget>[
 
-                },
+                  //SIGN IN BUTTON AND ITS FUNCTIONALITY
+
+                  RaisedButton(
+                    color:Colors.pink[400],
+                    child:Text(
+                      'Sign in',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    onPressed: () async{
+                      if(_formKey.currentState.validate()){
+                        setState(() => loading = true);
+                        dynamic result = await _auth.signInWithEmailAndPassword(email, password);
+                        if(result == null){
+                          setState(() {
+                            error = 'Could not sign in with those credentials';
+                            loading = false;
+                          });
+                        }
+                      }
+
+                    },
+                  ),
+
+                  //GOOGLE SIGN IN BUTTON
+
+                  SizedBox(height: 20.0),
+                  RaisedButton(
+                    child: Text(
+                      'Google Sign In',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    onPressed: () async{
+                      dynamic result = await _auth.handleSignIn();
+                      if(result == null){
+                        setState(() {
+                          error = 'Not Registered';
+                          loading = false;
+                        });
+                      }
+                    },
+                  ),
+
+
+
+                ],
               ),
+
+              //ERROR TEXT BOX
+
               SizedBox(height: 12.0),
               Text(
                 error,

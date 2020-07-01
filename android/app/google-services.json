@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "271308494944-mn95e2sp4qq393uf8p829tm267tuccdm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.VinayakBhardwaj.authentication",
+            "certificate_hash": "9d8ca153ae7f59547cbdce72c25b8b167f88de35"
+          }
+        },
+        {
           "client_id": "271308494944-hbiquptmkpagv11rvtcceniqh4af12p4.apps.googleusercontent.com",
           "client_type": 3
         }

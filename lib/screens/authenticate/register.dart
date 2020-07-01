@@ -47,6 +47,9 @@ class _RegisterState extends State<Register> {
           key: _formKey,
           child: Column(
               children:<Widget>[
+
+                //EMAIL TEXT FIELD AND ITS FUNCTIONALITY
+
                 SizedBox(height: 20.0),
                 TextFormField(
                     decoration: textInputDecoration.copyWith(hintText: 'Email'),
@@ -56,6 +59,9 @@ class _RegisterState extends State<Register> {
 
                     }
                 ),
+
+                //PASSWORD TEXT FIELD AND ITS FUNCTIONALITY
+
                 SizedBox(height: 20.0),
                 TextFormField(
                     decoration: textInputDecoration.copyWith(hintText: 'Password'),
@@ -67,26 +73,55 @@ class _RegisterState extends State<Register> {
                     }
                 ),
                 SizedBox(height: 20.0),
-                RaisedButton(
-                  color:Colors.pink[400],
-                  child:Text(
-                    'Register',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onPressed: () async{
-                    if(_formKey.currentState.validate()){
-                      setState(() => loading = true);
-                      dynamic result = await _auth.registerWithEmailAndPassword(email, password);
-                      if(result == null){
-                        setState(() {
-                          error = 'please supply a valid email';
-                          loading = false;
-                        });
+                Row(
+                  children: <Widget>[
 
-                      }
-                    }
-                  },
+                    // REGISTER BUTTON AND ITS FUNCTIONALITY
+
+                    RaisedButton(
+                      color:Colors.pink[400],
+                      child:Text(
+                        'Register',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      onPressed: () async{
+                        if(_formKey.currentState.validate()){
+                          setState(() => loading = true);
+                          dynamic result = await _auth.registerWithEmailAndPassword(email, password);
+                          if(result == null){
+                            setState(() {
+                              error = 'please supply a valid email';
+                              loading = false;
+                            });
+
+                          }
+                        }
+                      },
+                    ),
+
+                    //GOOGLE SIGN IN BUTTON AND ITS FUNCTIONALITY
+
+                    SizedBox(height: 20.0),
+                    RaisedButton(
+                      child: Text(
+                        'Google Sign In',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      onPressed: () async{
+                        dynamic result = await _auth.handleSignIn();
+                        if(result == null){
+                          setState(() {
+                            error = 'Not Registered';
+                            loading = false;
+                          });
+                        }
+                      },
+                    )
+                  ],
                 ),
+
+                //DISPLAYING OF ERROR MESSAGES
+
                 SizedBox(height: 12.0),
                 Text(
                   error,
